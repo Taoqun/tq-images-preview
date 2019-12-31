@@ -1,0 +1,19 @@
+{
+  "name": "tq-images-preview",
+  "version": "1.0.0",
+  "description": "一个js图片预览插件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Taoqun/tq-images-preview.git"
+  },
+  "author": "taoqun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Taoqun/tq-images-preview/issues"
+  },
+  "homepage": "https://github.com/Taoqun/tq-images-preview#readme"
+}
