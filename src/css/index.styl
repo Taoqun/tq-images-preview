@@ -1,4 +1,124 @@
-$mainColor = #333
-$bgColor = rgba(0,0,0,0.7)
-$fontColor = #ffffff
-$hoverColor = #666
+
+$bgColor = rgba(0,0,0,0.5)
+$mainColor = #777
+$radius = 5px
+
+@keyframes tq-images-close
+    0%
+        opacity 1
+        transform scale(1)
+    100%
+        opacity 0
+        transform scale(0.7)
+@keyframes tq-images-show
+    0%
+        opacity 0
+        transform scale(0.7)
+    100%
+        opacity 1
+        transform scale(1)
+
+@keyframes tq-images-fadein
+    0%
+        opacity 0
+    100%
+        opacity 1
+
+.tq-images-preview
+    z-index 99
+    width 100vw
+    height 100vh
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    &.show
+        animation tq-images-show 0.3s ease-in-out forwards
+    &.close
+        animation tq-images-close 0.3s ease-in-out forwards
+    .tq-images-mask
+        background $bgColor
+        position absolute
+        width 100%
+        height 100%
+
+    .tq-images-icon
+        display inline-block
+        width 20px
+        height 20px
+        background center center no-repeat
+        background-size 100% 100%
+        transition all 0.2s linear
+        cursor pointer
+
+        &:hover
+            transform scale(1.1)
+
+    .tq-images-close
+        z-index 999
+        display inline-block
+        position absolute
+        top 20px
+        right 20px
+        width 30px
+        height 30px
+        background-image url("./images/tq-images-close-icon.svg")
+
+    .tq-images-content
+        position absolute
+        top 50%
+        left 50%
+        transform translate(-50%,-50%)
+        width 100%
+        height 100%
+        display flex
+        align-items center
+        justify-content space-between
+
+    .tq-images-img
+        min-width 100px
+        min-height 100px
+        color #fff
+        background $mainColor
+        font-size 16px
+        letter-spacing 1px
+        line-height 1
+        display flex
+        align-items center
+        justify-content center
+        border-radius $radius
+        overflow hidden
+        img
+            animation tq-images-fadein 0.3s ease-in-out
+
+    .tq-images-last,.tq-images-next
+        flex-shrink 0
+        width 50px
+        height 50px
+        margin 0 20px
+        opacity 0.7
+        background-color $mainColor
+        border-radius 50%
+        &:hover
+            opacity 1
+            transform scale(1.1)
+        
+    .tq-images-last
+        background-image url("./images/tq-images-next-icon.svg")
+        transform rotate(180deg)
+        &:hover
+            transform rotate(180deg) scale(1.1)
+    .tq-images-next
+        background-image url("./images/tq-images-next-icon.svg")
+
+    .tq-images-list-wrap
+        position absolute
+        left 0
+        right 0
+        bottom 40px
+        margin 0 auto
+        width 200px
+        height 50px
+        border-radius 20px
+        background $mainColor

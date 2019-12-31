@@ -14,6 +14,7 @@ module.exports = {
         rules: [
             { test: /\.ts?$/, loader: "ts-loader" },
             { test: /\.styl(us)?$/, loader:'style-loader!css-loader!stylus-loader' },
+            { test: /\.svg/, use: [{ loader: 'url-loader', options: { limit: 1024*10 } }] },
         ]
     },
     plugins: [
