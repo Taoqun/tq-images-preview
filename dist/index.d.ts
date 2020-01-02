@@ -3,17 +3,23 @@ declare class tqImagesView {
     img: string;
     list: string[];
     index: number;
+    length: number;
+    imgDom: null | HTMLImageElement;
     constructor(img: string, list: string[]);
     init(): void;
-    addTemplate(): void;
+    renderDom(): void;
     loadlAll(): void;
-    loadImg(dom: HTMLElement | null, src: string): void;
+    addImglist(): void;
+    loadImg(dom: HTMLElement | null, src: string): null | HTMLImageElement;
     addEvent(): void;
-    previous(): void;
+    preTap(event: any): void;
+    last(): void;
     next(): void;
+    change(index: number): void;
+    updateImg(): void;
     close(): void;
+    removeEvent(): void;
     removeDom(): void;
-    change(): void;
 }
 declare const _default: (img: string, list: string[]) => tqImagesView;
 export default _default;
