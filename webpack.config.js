@@ -7,7 +7,7 @@ module.exports = {
     mode: 'production',
     entry: './src/main.ts',
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, './'),
         filename: 'index.js'
     },
     module: {
