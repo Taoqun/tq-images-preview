@@ -13,6 +13,7 @@ module.exports = {
     module: {
         rules: [
             { test: /\.ts?$/, loader: "ts-loader" },
+            { test: /\.css$/, use: ['style-loader', 'css-loader']},
             { test: /\.styl(us)?$/, loader:'style-loader!css-loader!stylus-loader' },
             { test: /\.svg/, use: [{ loader: 'url-loader', options: { limit: 1024*10 } }] },
         ]
