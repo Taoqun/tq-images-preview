@@ -1,5 +1,5 @@
 
-import "./css/index.styl"
+import "../css/index.css"
 
 class tqImagesView{
 
@@ -14,7 +14,6 @@ class tqImagesView{
         this.index = list.indexOf( img )
 
         this.init()
-        
         return this
 
     }
@@ -65,10 +64,10 @@ class tqImagesView{
         
     }
     loadlAll(){
-        let preview = document.querySelector(".tq-images-img")
-        this.loadImg( preview, this.img )
+        let dom: HTMLElement | null = document.querySelector(".tq-images-img")
+        this.loadImg( dom, this.img )
     }
-    loadImg( dom, src ){
+    loadImg( dom: HTMLElement | null, src: string ){
 
         if( !dom ){
             return
@@ -92,7 +91,7 @@ class tqImagesView{
 
     }
     addEvent(){
-        let closeDom = document.querySelector(".tq-images-close")
+        let closeDom: HTMLElement | null = document.querySelector(".tq-images-close")
         if( closeDom ){
             closeDom.addEventListener("click", this.close.bind(this) )
         }
@@ -107,13 +106,20 @@ class tqImagesView{
         this.removeDom()
     }
     removeDom(){
-        let dom = document.querySelector(".tq-images-preview")
-        if( dom ){
-            dom.className += " close"
-            setTimeout(()=>{
-                dom.parentElement.removeChild(dom)
-            },300)
+
+        let dom: HTMLElement | null = document.querySelector(".tq-images-preview")
+
+        if( !dom ){
+            return
         }
+        
+        dom.className += " close"
+        setTimeout(()=>{
+            if( dom && dom.parentElement ){
+                dom.parentElement.removeChild(dom)
+            }
+        },300)
+
     }
     change(){
 

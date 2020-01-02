@@ -36,3 +36,7 @@ yarn build
 ```javascript
 sudo tsc ./src/index.ts --outDir "./" 
 ```
+#### 编译 css stylus
+```
+stylus --compress css/
+```
