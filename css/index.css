@@ -68,7 +68,7 @@
   justify-content: center;
   border-radius: 5px;
   overflow: hidden;
-  transition: all 0.5s linear;
+  transition: all 0.3s ease-out;
 }
 .tq-images-preview .tq-images-img.error {
   background: #777;
