@@ -10,8 +10,9 @@ declare class tqImagesView {
     renderDom(): void;
     loadlAll(): void;
     addImglist(): void;
-    loadImg(dom: HTMLElement | null, src: string): null | HTMLImageElement;
+    loadImg(dom: HTMLElement | null, src: string, preview?: boolean): null | HTMLImageElement;
     addEvent(): void;
+    keyboardControl(event: any): void;
     preTap(event: any): void;
     last(): void;
     next(): void;

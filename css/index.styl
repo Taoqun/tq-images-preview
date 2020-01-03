@@ -35,6 +35,7 @@ $preWidth = 70px
     right 0
     bottom 0
     left 0
+    overflow hidden
     &.show
         animation tq-images-show 0.3s ease-in-out forwards
     &.close
@@ -81,8 +82,9 @@ $preWidth = 70px
     .tq-images-img
         min-width 100px
         min-height 100px
-        color #fff
-        background $mainColor
+        max-width 100%
+        max-height 100%
+        color #333
         font-size 16px
         letter-spacing 1px
         line-height 1
@@ -91,8 +93,13 @@ $preWidth = 70px
         justify-content center
         border-radius $radius
         overflow hidden
+        transition all 0.5s linear
+        &.error
+            background $mainColor
         img
-            animation tq-images-fadein 0.3s ease-in-out
+            max-width 100%
+            max-height 100%
+            animation tq-images-fadein 0.3s linear
 
     .tq-images-last,.tq-images-next
         flex-shrink 0
@@ -101,7 +108,7 @@ $preWidth = 70px
         margin 0 20px
         opacity 0.7
         background-color $mainColor
-        border-radius 50%
+        border-radius $radius
         &:hover
             opacity 1
             transform scale(1.1)
@@ -135,6 +142,11 @@ $preWidth = 70px
             transition all 0.3s ease-in-out
             position relative
             opacity 0.7
+            display flex
+            align-items center
+            justify-content center
+            font-size 12px
+            color #333
 
             &:after
                 content ""
