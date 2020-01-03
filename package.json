@@ -1,6 +1,6 @@
 {
   "name": "tq-images-preview",
-  "version": "1.0.16",
+  "version": "1.0.18",
   "description": "一个js图片预览插件",
   "main": "dist/index.js",
   "scripts": {

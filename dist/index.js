@@ -4,9 +4,9 @@ require("../css/index.css");
 var tqImagesView = (function () {
     function tqImagesView(img, list) {
         this.img = img;
-        this.list = list;
-        this.index = list.indexOf(img);
-        this.length = list.length;
+        this.list = list ? Array.from(new Set(list)) : [img];
+        this.index = this.list.indexOf(img);
+        this.length = this.list.length;
         this.imgDom = null;
         this.init();
         return this;
@@ -33,7 +33,7 @@ var tqImagesView = (function () {
     };
     tqImagesView.prototype.loadlAll = function () {
         var dom = document.querySelector(".tq-images-img");
-        this.imgDom = this.loadImg(dom, this.img);
+        this.imgDom = this.loadImg(dom, this.img, true);
         this.addImglist();
     };
     tqImagesView.prototype.addImglist = function () {
@@ -46,6 +46,7 @@ var tqImagesView = (function () {
         this.list.forEach(function (img) {
             var div = document.createElement("div");
             div.className = "tq-images-img-pre";
+            div.dataset.src = img;
             if (img === _this.img) {
                 div.className += " active";
             }
@@ -53,7 +54,7 @@ var tqImagesView = (function () {
             _this.loadImg(div, img);
         });
     };
-    tqImagesView.prototype.loadImg = function (dom, src) {
+    tqImagesView.prototype.loadImg = function (dom, src, preview) {
         if (!dom) {
             return null;
         }
@@ -62,9 +63,15 @@ var tqImagesView = (function () {
         img.onload = function () {
             dom.innerHTML = "";
             dom.className = dom.className.replace("error", "").trim();
+            if (preview) {
+                dom.style.width = img.width + "px";
+                dom.style.height = img.height + "px";
+            }
             dom.appendChild(img);
         };
         img.onerror = function () {
+            dom.style.width = "70px";
+            dom.style.height = "70px";
             dom.innerHTML = "加载失败";
             dom.className = dom.className.replace("error", "").trim() + " error";
         };
@@ -88,11 +95,37 @@ var tqImagesView = (function () {
         if (prelist) {
             prelist.addEventListener("click", this.preTap.bind(this));
         }
+        document.addEventListener("keyup", this.keyboardControl.bind(this));
+    };
+    tqImagesView.prototype.keyboardControl = function (event) {
+        switch (event.keyCode) {
+            case 37:
+                this.last();
+                break;
+            case 38:
+                this.last();
+                break;
+            case 39:
+                this.next();
+                break;
+            case 40:
+                this.next();
+                break;
+            case 27:
+                this.close();
+                break;
+        }
     };
     tqImagesView.prototype.preTap = function (event) {
-        if (event.target.tagName === "IMG") {
-            this.change(this.list.indexOf(event.target.src));
+        var dom = event.target;
+        var index = -1;
+        if (dom.tagName === "IMG") {
+            index = this.list.indexOf(dom.src);
         }
+        else if (dom.tagName === "DIV" && dom.className.includes("tq-images-img-pre")) {
+            index = this.list.indexOf(dom.dataset.src);
+        }
+        this.change(index);
     };
     tqImagesView.prototype.last = function () {
         this.change(this.index <= 0 ? this.length - 1 : this.index - 1);
@@ -101,6 +134,9 @@ var tqImagesView = (function () {
         this.change(this.index >= this.length - 1 ? 0 : this.index + 1);
     };
     tqImagesView.prototype.change = function (index) {
+        if (index < 0) {
+            return;
+        }
         this.index = index;
         this.img = this.list[this.index];
         this.updateImg();
@@ -110,16 +146,13 @@ var tqImagesView = (function () {
         if (this.imgDom) {
             this.imgDom.src = this.img;
         }
-        var domlist = document.querySelectorAll(".tq-images-list-wrap img");
+        var domlist = document.querySelectorAll(".tq-images-list-wrap .tq-images-img-pre");
         Array.prototype.forEach.call(domlist, function (dom, index) {
-            if (!dom.parentElement) {
-                return;
-            }
             if (index === _this.index) {
-                dom.parentElement.className = "tq-images-img-pre active";
+                dom.className = "tq-images-img-pre active";
             }
             else {
-                dom.parentElement.className = "tq-images-img-pre";
+                dom.className = "tq-images-img-pre";
             }
         });
     };
@@ -140,6 +173,11 @@ var tqImagesView = (function () {
         if (nextDom) {
             nextDom.removeEventListener("click", this.next.bind(this));
         }
+        var prelist = document.querySelector(".tq-images-list-wrap");
+        if (prelist) {
+            prelist.removeEventListener("click", this.preTap.bind(this));
+        }
+        document.removeEventListener("keyup", this.keyboardControl.bind(this));
     };
     tqImagesView.prototype.removeDom = function () {
         var dom = document.querySelector(".tq-images-preview");
