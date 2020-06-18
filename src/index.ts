@@ -10,16 +10,13 @@ class tqImagesView{
     imgDom: null | HTMLImageElement
 
     constructor( img: string, list: string[] ){
-
         this.img = img
         this.list = list ? Array.from( new Set(list) ) : [ img ]
         this.index = this.list.indexOf( img )
         this.length = this.list.length
         this.imgDom = null
-
         this.init()
         return this
-
     }
     init(){
         this.removeDom()

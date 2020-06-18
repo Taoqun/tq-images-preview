@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "noImplicitAny": true,
-        "removeComments": true,
+        "noImplicitAny": false,
+        "removeComments": false,
         "preserveConstEnums": true,
         "sourceMap": false,
+        "lib": [ "es2015", "dom" ],
         "outDir": "./dist/",
-        "declaration": true
+        "declaration": false
     }
 }
